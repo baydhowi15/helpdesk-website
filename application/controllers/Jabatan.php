@@ -65,7 +65,7 @@ class Jabatan extends CI_Controller
 
 		if($delete){
 			$this->M_jabatan->delete($id);
-			$this->session->set_flashdata('hapus','<div class="alert alert-infor">Data Berhasil Di Hapus </div>');
+			$this->session->set_flashdata('hapus','<div class="alert alert-info">Data Berhasil Di Hapus </div>');
             redirect('jabatan','refresh');
 		} else {
 			$this->session->set_flashdata('hapus','<div class="alert alert-danger">Data Tidak Ada </div>');

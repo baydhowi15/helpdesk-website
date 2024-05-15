@@ -104,8 +104,8 @@ class Auth extends CI_Controller{
     }
 
     function logout(){
-        $this->session->sess_destroy();
         $this->session->set_flashdata('message','<div class="alert alert-info">Anda Berhasil Logout</div>');
+        $this->session->sess_destroy();
         redirect('auth/login');
     }
 
