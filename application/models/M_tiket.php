@@ -76,6 +76,8 @@ class M_tiket extends CI_Model
 		return $this->db->get()->num_rows();
 	}
 
+	// function tiket_respon()
+
 	function tiket_proses()
 	{
 		$this->db->select('*');

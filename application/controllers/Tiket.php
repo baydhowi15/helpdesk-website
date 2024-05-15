@@ -27,11 +27,12 @@ class Tiket extends CI_Controller{
 		$this->form_validation->set_rules('deskripsi','Deskripsi Tiket','trim|required');
 
 		$this->form_validation->set_message('required','{field} Harus Terisi');
-		$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message','<div class="alert alert-danger">Data Tidak Disimpan</div>');
 			$this->index();
-			$this->session->set_flashdata('me','<div class="alert alert-info">Data Berhasil di Simpan</div>');
 		} else {
 			if ($_FILES['gambar_tiket']['error'] <> 4){		
 				$config['upload_path'] = './assets/img/tiket';
@@ -116,9 +117,10 @@ class Tiket extends CI_Controller{
 	function save_tanggapan()
 	{
 		$this->form_validation->set_rules('tanggapan','Tanggapan','trim|required');
+		//$this->form_validation->set_rules('gambar_tanggapan','Gambar','trim|required');
 
 		$this->form_validation->set_message('required','{field} Harus Terisi');
-		$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
@@ -133,8 +135,8 @@ class Tiket extends CI_Controller{
 				$this->load->library('upload', $config);
 
 				if (!$this->upload->do_upload('gambar_tanggapan')) {
-					$error = array ('error' => $this->upload->display_errors());
-					$this->session->set_flashdata('message', '<div class ="alert alert-danger">' . $error['error'] . '</div>');
+	
+					$this->session->set_flashdata('message', '<div class ="alert alert-danger">Gambar Tanggapan Harus Terisi</div>');
 					$this->index();
 				} else {
 
@@ -156,10 +158,10 @@ class Tiket extends CI_Controller{
 					 	'gambar_tanggapan'	=> $this->upload->data('file_name'),
 					 	'waktu_tanggapan'	=> date ('Y-m-d'),
 					 );
-					 var_dump($data);
+					 // var_dump($data);
 
 					 $this->M_tiket->insert_tanggapan($data);
-					 $this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+					 $this->session->set_flashdata('message','<div class="alert alert-info">Tiket Berhasil di Simpan</div>');
             		 redirect('tiket','refresh');
 				}
 			}	else {
@@ -167,7 +169,7 @@ class Tiket extends CI_Controller{
 					if ($this->input->post('id_tiket')){
 						$data = array (
 
-							'status_tiket' =>3,
+							'status_tiket' =>2,
 						);
 
 						$this->M_tiket->update($this->input->post('id_tiket'), $data);
@@ -181,7 +183,7 @@ class Tiket extends CI_Controller{
 
 					);
 					$this->M_tiket->insert_tanggapan($data);
-					$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+					$this->session->set_flashdata('message','<div class="alert alert-info">Tiket Berhasil di Simpan</div>');
             		redirect('tiket','refresh');
 				}
 			}
@@ -191,7 +193,7 @@ class Tiket extends CI_Controller{
 		$this->form_validation->set_rules('status_tiket','Status Tiket','trim|required');
 
 		$this->form_validation->set_message('required','{field} Harus Terisi');
-		$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+		$this->session->set_flashdata('message','<div class="alert alert-info">Tiket Berhasil di Simpan</div>');
 
 		if($this->form_validation->run() == FALSE){
 			$this->index();
@@ -202,7 +204,7 @@ class Tiket extends CI_Controller{
 			// var_dump($data);
 
 			$this->M_tiket->update($this->input->post('id_tiket'), $data);
-			$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Close</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-info">Tiket Berhasil di Tutup</div>');
             redirect('tiket','refresh');
 		}
 	}
@@ -213,10 +215,10 @@ class Tiket extends CI_Controller{
 
 		if ($delete) {
 			$this->M_tiket->delete($id);
-			$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Hapus</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-info">Tiket Berhasil di Hapus</div>');
             redirect('tiket','refresh');
 		} else{
-			$this->session->set_flashdata('message','<div class="alert alert-danger">Data Tidak Ada</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-danger">TiketTidak Ada</div>');
             redirect('tiket','refresh');
 		}
 	}

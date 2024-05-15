@@ -22,7 +22,9 @@ class Divisi extends CI_Controller
 	{
 		$this->form_validation->set_rules('divisi','Divisi','trim|required');
 		$this->form_validation->set_message('required','{field} Harus Terisi');
-		$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
+		
+
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
 
 		if($this->form_validation->run() == TRUE){
 			$data = [
@@ -34,6 +36,7 @@ class Divisi extends CI_Controller
             redirect('divisi','refresh');
 		} else {
 			$this->index();
+			$this->session->set_flashdata('message','<div class="alert alert-info">Data Berhasil di Simpan</div>');
 		}
 	}
 
@@ -66,7 +69,7 @@ class Divisi extends CI_Controller
 
 		if($delete){
 			$this->M_divisi->delete($id);
-			$this->session->set_flashdata('hapus','<div class="alert alert-danger">Data Berhasil Di Hapus </div>');
+			$this->session->set_flashdata('hapus','<div class="alert alert-info">Data Berhasil Di Hapus </div>');
             redirect('divisi','refresh');
 		} else {
 			$this->session->set_flashdata('hapus','<div class="alert alert-danger">Data Tidak Ada </div>');

@@ -3,12 +3,14 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        
       </div>
       
     </div>
   </section>
   <section class="content">
+    <?= $this->session->flashdata('message');?>
+    <?= $this->session->flashdata('hapus');?>
+    <?= validation_errors();?>
     <div class="row mt-2">
       <div class="col-12">
         <div class="card">
@@ -17,9 +19,9 @@
             <a href="<?= base_url('tiket/add_tiket')?>" class="btn btn-primary btn-sm float-right" data-toggle ="modal" data-target="#form_tiket"> <i class='fas fa-plus'> </i> Tambah Data </a>
           </div>
           <div class="card-body">
-            <?= $this->session->flashdata('message');?>
-            <?= $this->session->flashdata('hapus');?>
-            <table class="table table-bordered">
+          
+            <table id="example1"class="table table-bordered">
+
               <thead>
                 <tr>
                   <th>No</th>
@@ -41,13 +43,13 @@
                     <td><?= $row->judul_tiket?></td>
                     <td>
                      <?php if ($row->status_tiket == '0') {
-                      echo '<span class="badge badge-warning"> Menunggu</span>';
+                      echo '<span class="badge badge-warning"> Menunggu Respon</span>';
                      } elseif ($row->status_tiket == '1'){
                         echo '<span class="badge badge-info"> Respon</span>';
                      } elseif ($row->status_tiket == '2') {
                        echo '<span class="badge badge-success"> Proses</span>';
                      } else {
-                      echo '<span class="badge badge-danger"> Selesai</span>';
+                      echo '<span class="badge bg-green"> Selesai</span>';
                      }
                      ?>
                     </td>
@@ -67,8 +69,9 @@
                             data-closetiket="' . $row->id_tiket . '" 
                             data-closestatus="' . $row->id_tiket . '"
                             class="btn btn-primary btn-sm"> Tutup Tiket </a>';
-                        } else {
-                          echo '<a href ="javascript:void(0);" class="btn btn-danger btn-sm"> Solved </a>';
+                        } 
+                        else {
+                          echo '<a href ="javascript:void(0);" class="btn bg-green btn-sm"> Selesai </a>';
                         }
 
                       ?>
@@ -86,6 +89,23 @@
               
               </tbody>
             </table>
+            <script>
+              $(function () {
+                $("#example1").DataTable({
+                  "responsive": true,
+                  "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                  "paging": true,
+                  "lengthChange": false,
+                  "searching": false,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": false,
+                  "responsive": true,
+                });
+              });
+          </script>
           </div>        
         </div>
       </div>
@@ -94,6 +114,7 @@
 </div>
 
 <div class="modal fade" id="form_tiket">
+
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -102,6 +123,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <?= $this->session->flashdata('message');?>
       <div class="modal-body">
         <form action="<?= base_url('tiket/save_tiket')?>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -110,7 +132,7 @@
                   <input type="text" name="judul_tiket" class="form-control"></input>
                 </div>
                 <div class="form-group">
-                  <label> Keterangan </label>
+                  <label> Deskripsi </label>
                   <textarea name="deskripsi" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
@@ -131,7 +153,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-tittle">Yakin Confirm Tiket </h5>
+        <h5 class="modal-tittle">Yakin Konfirmasi Tiket </h5>
         <button class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -153,9 +175,7 @@
 </div>
 
 <div class="modal fade" id="modal_reply">
-  <?= $this->session->flashdata('message');?>
-  <?= $this->session->flashdata('hapus');?>
-  <?= validation_errors();?>
+  
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,6 +184,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      
       <div class="modal-body">
         <form action="<?= base_url('tiket/save_tanggapan')?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
@@ -171,12 +192,13 @@
             <input type="hidden" name="tiket_id" id="tiket_id" class="form-control"></input>
                 </div>
 
-                <div class="form-group">
-                  <label for="keluhan">Keluhan</label>
+                
+                <!-- <div class="form-group">
+                  <label for="judul_tiket">Keluhan</label>
                   <input type="text" id="judul_tiket" class="form-control" readonly></input>
-                </div>
+                </div> -->
                 <div class="form-group">
-                  <label for="deskripsi">Deskripsi</label>
+                  <label for="deskripsi">Deskripsi Tiket</label>
                   <textarea type="text" id="deskripsi" class="form-control" readonly></textarea>
                 </div>
                 <div class="form-group">
@@ -201,7 +223,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-tittle">Yakin Close Tiket </h5>
+        <h5 class="modal-tittle">Yakin Tutup Tiket </h5>
         <button class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -214,7 +236,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary btn-sm"> <li class="fas fa-save"></li> Close Tiket </button>
+                <button type="submit" class="btn btn-primary btn-sm"> <li class="fas fa-save"></li> Tutup Tiket </button>
 
             </form>
     </div>
@@ -277,7 +299,7 @@
           <div class="card-body">
             <?= $this->session->flashdata('message');?>
             <?= $this->session->flashdata('hapus');?>
-            <table class="table table-bordered">
+            <table id="example1" class="table table-bordered">
               <thead>
                 <tr>
                   <th>No</th>
@@ -304,7 +326,7 @@
                      } elseif ($row->status_tiket == '2') {
                        echo '<span class="badge badge-success"> Proses</span>';
                      } else {
-                      echo '<span class="badge badge-danger"> Tiket Selesai</span>';
+                      echo '<span class="badge badge-success"> Tiket Selesai</span>';
                      }
                      ?>
                     </td>
@@ -318,6 +340,23 @@
               
               </tbody>
             </table>
+            <script>
+              $(function () {
+                $("#example1").DataTable({
+                  "responsive": true,
+                  "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                  "paging": true,
+                  "lengthChange": false,
+                  "searching": false,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": false,
+                  "responsive": true,
+                });
+              });
+          </script>
           </div>        
         </div>
       </div>

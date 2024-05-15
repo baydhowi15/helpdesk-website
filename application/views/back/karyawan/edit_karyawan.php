@@ -22,7 +22,7 @@
             <form action="<?= base_url('karyawan/update_karyawan')?>" method="POST">
                 <div class="input-group mb-3">
                   <input type="hidden" name="id_users" value="<?= $users->id_users?>" class="form-control">
-                  <input type="text" name="nip" value="<?= $users->nip?>" class="form-control" placeholder="NIP">
+                  <input type="text" name="nip" value="<?= $users->nip?>" class="form-control" placeholder="NIP" readonly>
                 </div>
                  <div class="input-group mb-3">
                   <input type="text" name="username" value="<?= $users->username?>" class="form-control" placeholder="Username">

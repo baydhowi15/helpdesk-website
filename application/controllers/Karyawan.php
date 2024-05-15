@@ -16,7 +16,7 @@ class Karyawan extends CI_Controller {
 
         $config['base_url']     = 'http://localhost/helpdesk/karyawan/index';
         $config['total_row']    = $this->M_karyawan->countAllKaryawan();
-        $config['per_page']     = 2;
+        $config['per_page']     = 5;
 
         //intialize
         $this->pagination->initialize($config);
@@ -76,6 +76,21 @@ class Karyawan extends CI_Controller {
 	}
 
     function edit_karyawan($id){
+        $this->form_validation->set_rules('nip','Nip','trim|is_unique[users.nip]|required');
+        $this->form_validation->set_rules('username','Username','trim|required');
+        $this->form_validation->set_rules('email','Email','valid_email|is_unique[users.email]|required');
+        $this->form_validation->set_rules('divisi','Divisi','trim|required');
+        $this->form_validation->set_rules('jabatan','Jabatan','trim|required');
+        $this->form_validation->set_rules('password','Password','trim|min_length[5]|required');
+        $this->form_validation->set_rules('confirm_password','Confirm Password','trim|matches[password]|required');
+
+        $this->form_validation->set_message('required','{field} Harus Terisi');
+        $this->form_validation->set_message('valid_email','{field} Anda Harus Benar');
+        $this->form_validation->set_message('min_length','{field} Harus 5 Karakter');
+        $this->form_validation->set_message('matches','{field} Harus Sama');
+
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
+
         $data['users'] = $this->M_karyawan->get_id_users($id);
         if($data['users']){
             $data['jabatan'] = $this->M_jabatan->get_jabatan();
@@ -90,6 +105,7 @@ class Karyawan extends CI_Controller {
     function update_karyawan(){
        
         $this->form_validation->set_rules('username','Username','trim|required');
+        $this->form_validation->set_rules('email','Email','valid_email|is_unique[users.email]|required');
 
         $this->form_validation->set_message('required','{field} Harus Terisi');
         $this->form_validation->set_message('valid_email','{field} Anda Harus Benar');

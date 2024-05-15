@@ -52,7 +52,7 @@
                      } elseif ($tiket->status_tiket == '2') {
                        echo '<span class="badge badge-success"> Proses</span>';
                      } else {
-                      echo '<span class="badge badge-danger"> Selesai</span>';
+                      echo '<span class="badge bg-green"> Selesai</span>';
                      }
                      ?>
                      <br>

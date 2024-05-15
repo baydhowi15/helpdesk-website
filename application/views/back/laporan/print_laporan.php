@@ -2,7 +2,11 @@
 <div class="container mt-3">
 	<div class="row">
 		<div class="col-sm-12">
-			<h3 class="display-4 text-center"> Laporan IT HelpDesk</h3>
+			<h2 class="display-4 text-center"> Laporan IT HelpDesk</h2>
+			<h3 class="display-4 text-center"> PT. Balai Lelang Star</h3>
+			<img src="../assets/img/logo.png" align="top" width="250" height="50" >
+			<img src="../assets/img/logo.png" align="right" width="250" height="50" >
+			<hr>
 		</div>
 	</div>
 <br>

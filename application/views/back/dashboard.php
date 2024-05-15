@@ -19,6 +19,7 @@
           </div><!-- /.col -->
         </div><!-- /.row -->
         <div class="alert alert-info">Selamat Datang <b> <?= $this->session->username;?> </b> </div>
+        
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

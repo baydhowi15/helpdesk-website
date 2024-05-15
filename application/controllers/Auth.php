@@ -63,6 +63,11 @@ class Auth extends CI_Controller{
         $this->form_validation->set_rules('username','Username','trim|required');
         $this->form_validation->set_rules('password','Password','trim|required');
 
+        $this->form_validation->set_message('required','{field} Harus Terisi');
+
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
+
+
          if ($this->form_validation->run() == TRUE){
             $users = $this->M_auth->get_username_user($this->input->post('username'));
             if(!$users){
@@ -75,6 +80,9 @@ class Auth extends CI_Controller{
                 $this->session->set_flashdata('message','<div class="alert alert-danger">Password Anda Salah</div>');
                  //var_dump($users);
                 redirect('auth/login','refresh');
+            } elseif ($this->form_validation->run() == FALSE ){
+                $this->session->set_flashdata('message','<div class="alert alert-danger">Data Tidak Disimpan</div>');
+                $this->index();
             } else {
                 $session = array(
                     'id_users'      => $users->id_users,
@@ -90,14 +98,14 @@ class Auth extends CI_Controller{
             }
          } else {
             $data['title'] ='Login Pages';
-            $this->load->view('back/register', $data);
+            $this->load->view('back/login', $data);
 
          }
     }
 
     function logout(){
         $this->session->sess_destroy();
-        $this->session->set_flashdata('message','<div class="alert alert-danger"> Anda Berhasil Logout</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-info">Anda Berhasil Logout</div>');
         redirect('auth/login');
     }
 

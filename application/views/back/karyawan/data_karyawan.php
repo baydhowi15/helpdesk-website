@@ -18,7 +18,7 @@
           <div class="card-body">
             <?= $this->session->flashdata('message');?>
             <?= $this->session->flashdata('hapus');?>
-            <table class="table table-bordered">
+            <table id="example1" class="table table-bordered">
               <thead>
                 <tr>
                   <th>No</th>
@@ -62,8 +62,24 @@
               
               </tbody>
             </table>
-            <p>COba</p>
-            <?= $this->pagination->create_links();?>    
+           
+          <script>
+              $(function () {
+                $("#example1").DataTable({
+                  "responsive": true,
+                  "autoWidth": false,
+                });
+                $('#example2').DataTable({
+                  "paging": true,
+                  "lengthChange": false,
+                  "searching": false,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": false,
+                  "responsive": true,
+                });
+              });
+          </script>  
           </div>
              
         </div>

@@ -28,5 +28,13 @@
 <script src="<?= base_url()?>assets/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url()?>assets/back/dist/js/adminlte.js"></script>
+
+<!-- DataTables -->
+<script src="<?=base_url()?>assets/back/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url()?>assets/back/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url()?>assets/back/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url()?>assets/back/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+
 </body>
 </html>
