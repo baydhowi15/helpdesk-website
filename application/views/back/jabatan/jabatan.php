@@ -16,7 +16,7 @@
           </div>
           
           <div class="card-body">
-          <?= $this->session->flashdata('message');?>
+          <!-- <?= $this->session->flashdata('message');?> -->
           <?= validation_errors();?>
             <form action="<?= base_url('jabatan/save_jabatan')?>" method="POST">
                 <div class="form-group">

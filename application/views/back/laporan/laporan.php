@@ -27,7 +27,6 @@
                   <input type="date" name="tgl_akhir" id="tgl_akhir" value="<?= date('Y-m-d');?>" class="form-control"></input>
                 </div>
 
-
                 <button type="submit" name="submit" class="btn btn-primary btn-sm"> <li class="fas fa-print"></li> Cetak </button>
 
             </form>

@@ -24,4 +24,3 @@ class Laporan extends CI_Controller
 		$this->load->view('back/laporan/print_laporan', $data);
 	}
 }
-?>
