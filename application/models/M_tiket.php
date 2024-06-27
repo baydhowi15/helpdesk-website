@@ -13,6 +13,35 @@ class M_tiket extends CI_Model
 		return $this->db->get('tiket')->result();
 	}
 
+	function tiket_user_wait(){
+		$this->db->select('*');
+		$this->db->from('tiket');
+		$this->db->where('tiket.user_id',$this->session->userdata('id_users'));
+		$this->db->where('status_tiket', 0);
+
+		return $this->db->get()->num_rows();
+	}
+
+	function tiket_user_respon(){
+		$this->db->select('*');
+		$this->db->from('tiket');
+		$this->db->where('tiket.user_id',$this->session->userdata('id_users'));
+		$this->db->where('status_tiket', 2);
+
+		return $this->db->get()->num_rows();
+	}
+
+
+	function tiket_user_solved(){
+		$this->db->select('*');
+		$this->db->from('tiket');
+		$this->db->where('tiket.user_id',$this->session->userdata('id_users'));
+		$this->db->where('status_tiket', 3);
+
+		return $this->db->get()->num_rows();
+	}
+
+
 	function get_no_tiket($no_tiket){
 		$this->db->join('users','tiket.user_id = users.id_users', 'left');
 		$this->db->join('divisi','users.divisi = divisi.divisi', 'left');
@@ -92,11 +121,34 @@ class M_tiket extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tiket');
 		$this->db->where('status_tiket', 3);
-
 		return $this->db->get()->num_rows();
 	}
 
+	// function coba(){
 
+	// 	$this->db->select('*');
+	// 	$this->db->from('tiket');
+	// 	$this->db->where('user_id', 43);
+	// 	$this->db->where('status_tiket', 3);
+	// 	return $this->db->get()->num_rows();
+	// }
 
+	// function coba2(){
+
+	// 	$this->db->select('*');
+	// 	$this->db->from('tiket');
+	// 	$this->db->where('user_id', 43);
+	// 	$this->db->where('status_tiket', 2);
+	// 	return $this->db->get()->num_rows();
+	// }
+	// function coba3(){
+
+	// 	$this->db->select('*');
+	// 	$this->db->from('tiket');
+	// 	$this->db->where('user_id', 43);
+	// 	$this->db->where('status_tiket', 0);
+	// 	return $this->db->get()->num_rows();
+	// }
 }
+
 ?>
